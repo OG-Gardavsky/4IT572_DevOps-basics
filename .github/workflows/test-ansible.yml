@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: run ansible playbook
-        uses: saubermacherag/ansible-playbook-docker-action@v1.4
-        with:
-          playbookName: 'ansible/built_and_test_eshop.yml'
+        run: |
+          ssh ec2-user@ec2-52-90-85-163.compute-1.amazonaws.com
 
