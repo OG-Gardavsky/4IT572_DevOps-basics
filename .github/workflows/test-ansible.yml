@@ -13,16 +13,24 @@ jobs:
 #        uses: actions/checkout@v2.5.0
 #        with:
 #          token: ${{ secrets.WORKFLOW_TOKEN }}
-      - name: print content
+      - name: create pem key
         run: |
           mkdir .ssh
-          ls
           chmod 700 .ssh
           cd .ssh
-          ls
           touch devops.pem
           chmod 600 devops.pem
           echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
-          ls
-          ssh -i "devops.pem" ec2-user@ec2-35-173-211-195.compute-1.amazonaws.com
+
+      - name: check key
+        run: |
+          ls -la
+
+      - name: connect via ssh
+        uses: D3rHase/ssh-command-action@{version}
+        with:
+          host: ${{secrets.EC2_HOST}}
+          user: ${{secrets.EC2_USERNAME}}
+          private_key: devops.pem
+          command: touch neco.txt
 
