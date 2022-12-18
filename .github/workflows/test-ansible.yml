@@ -23,6 +23,5 @@ jobs:
           touch devops.pem
           chmod 600 devops.pem
           echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
-          cat devops.pem
-          ls .ssh/
+          ls
 
