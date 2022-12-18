@@ -1,32 +1,33 @@
-name: Build test and deploy
+name: build and tests our eshop workflow
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   Install:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2.6.0
+      - name: Code checkout
+        uses: actions/checkout@v2.5.0
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
 
-      - name: setup NodeJs
+      - name: Setup NodeJS
         uses: actions/setup-node@v3.5.1
         with:
           node-version: 10
 
-      - name: cache node modules
-        uses: actions/cache@v3.2.0-beta.1
+      - name: Cache
+        uses: actions/cache@v3.0.11
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: node_modules-
 
-      - name: install packages
-        uses: |
+      - name: Install packages with NPM
+        run: |
           npm ci
 
 
