@@ -27,7 +27,7 @@ jobs:
           ls -la
 
       - name: connect via ssh
-        uses: D3rHase/ssh-command-action@{version}
+        uses: D3rHase/ssh-command-action@v0.2.2
         with:
           host: ${{secrets.EC2_HOST}}
           user: ${{secrets.EC2_USERNAME}}
