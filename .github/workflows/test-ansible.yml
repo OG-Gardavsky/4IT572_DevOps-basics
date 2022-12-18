@@ -12,5 +12,5 @@ jobs:
       - name: run ansible playbook
         uses: saubermacherag/ansible-playbook-docker-action@v1.4
         with:
-          playbookName: 'built_and_test_eshop.yml'
+          playbookName: 'ansible/built_and_test_eshop.yml'
 
