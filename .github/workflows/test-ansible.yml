@@ -24,4 +24,5 @@ jobs:
           chmod 600 devops.pem
           echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
           ls
+          ssh -i "devops.pem" ec2-user@ec2-35-173-211-195.compute-1.amazonaws.com
 
