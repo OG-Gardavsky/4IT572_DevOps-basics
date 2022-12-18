@@ -9,31 +9,12 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-#      - name: Code checkout
-#        uses: actions/checkout@v2.5.0
-#        with:
-#          token: ${{ secrets.WORKFLOW_TOKEN }}
-#      - name: create pem key
-#        run: |
-#          mkdir .ssh
-#          chmod 700 .ssh
-#          cd .ssh
-#          touch devops.pem
-#          chmod 600 devops.pem
-#          echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
-
-#      - name: check key
-#        run: |
-#          cd .ssh
-#          ls -la
-
       - name: connect via ssh
         uses: D3rHase/ssh-command-action@v0.2.2
         with:
           host: ${{secrets.EC2_HOST}}
           user: ${{secrets.EC2_USERNAME}}
           private_key: ${{ secrets.AWS_KEY }}
-          command: touch neco.txt
-
-#      - name: connect via ssh
-#        run:
+          command: |
+            echo "jsem tady a nebojim se toho" >> neco.txt
+            echo "jsem tady a nebojim se toho" >> neco2.txt
