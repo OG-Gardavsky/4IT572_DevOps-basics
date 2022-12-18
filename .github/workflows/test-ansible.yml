@@ -13,6 +13,6 @@ jobs:
         run: |
           echo "$PWD"
           ls
-          cat ansible/ec2_deploy.yml
+          cat ./ansible/ec2_deploy.yml
           ansible-playbook ./ansible/ec2_deploy.yml
 
