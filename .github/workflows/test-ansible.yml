@@ -13,19 +13,19 @@ jobs:
 #        uses: actions/checkout@v2.5.0
 #        with:
 #          token: ${{ secrets.WORKFLOW_TOKEN }}
-      - name: create pem key
-        run: |
-          mkdir .ssh
-          chmod 700 .ssh
-          cd .ssh
-          touch devops.pem
-          chmod 600 devops.pem
-          echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
+#      - name: create pem key
+#        run: |
+#          mkdir .ssh
+#          chmod 700 .ssh
+#          cd .ssh
+#          touch devops.pem
+#          chmod 600 devops.pem
+#          echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
 
-      - name: check key
-        run: |
-          cd .ssh
-          ls -la
+#      - name: check key
+#        run: |
+#          cd .ssh
+#          ls -la
 
       - name: connect via ssh
         uses: D3rHase/ssh-command-action@v0.2.2
