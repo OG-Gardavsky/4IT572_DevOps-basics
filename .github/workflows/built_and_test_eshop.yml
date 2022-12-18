@@ -31,31 +31,31 @@ jobs:
 
 
 
-    Build:
-      needs: Install
-      runs-on: ubuntu-latest
+  Build:
+    needs: Install
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: code checkout
-          uses: actions/checkout@v2.6.0
-          with:
-            repository: OG-Gardavsky/4IT572_DevOps-basics
+    steps:
+      - name: code checkout
+        uses: actions/checkout@v2.6.0
+        with:
+          repository: OG-Gardavsky/4IT572_DevOps-basics
 
-        - name: setup NodeJs
-          uses: actions/setup-node@v3.5.1
-          with:
-            node-version: 10
+      - name: setup NodeJs
+        uses: actions/setup-node@v3.5.1
+        with:
+          node-version: 10
 
-        - name: cache node modules
-          uses: actions/cache@v3.2.0-beta.1
-          with:
-            path: node_modules
-            key: node_modules-${{ hashFiles('**/package-lock.json') }}
+      - name: cache node modules
+        uses: actions/cache@v3.2.0-beta.1
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/package-lock.json') }}
 
-        - name: Build
-          run: |
-            npm rebuild node-sass --force
-            npm run build --colors
+      - name: Build
+        run: |
+          npm rebuild node-sass --force
+          npm run build --colors
 
 
 
