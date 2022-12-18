@@ -9,7 +9,13 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: run ansible playbook
+      - name: Code checkout
+        uses: actions/checkout@v2.5.0
+        with:
+          token: ${{ secrets.WORKFLOW_TOKEN }}
+      - name: print content
         run: |
-          ssh ec2-user@ec2-52-90-85-163.compute-1.amazonaws.com
+          echo "$PWD"
+          ls
+          cat ./ansible/ec2_deploy.yml
 
