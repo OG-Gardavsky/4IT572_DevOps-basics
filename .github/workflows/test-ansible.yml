@@ -24,6 +24,7 @@ jobs:
 
       - name: check key
         run: |
+          cd .ssh
           ls -la
 
       - name: connect via ssh
@@ -31,6 +32,8 @@ jobs:
         with:
           host: ${{secrets.EC2_HOST}}
           user: ${{secrets.EC2_USERNAME}}
-          private_key: devops.pem
+          private_key: ${{ secrets.AWS_KEY }}
           command: touch neco.txt
 
+#      - name: connect via ssh
+#        run:
