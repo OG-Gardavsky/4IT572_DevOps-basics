@@ -10,9 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: run ansible playbook
-        run: |
-          echo "$PWD"
-          ls
-          cat ./ansible/ec2_deploy.yml
-          ansible-playbook ./ansible/ec2_deploy.yml
+        uses: tomasnorre/ansible-cli-action@0.0.5
+        with:
+          command: "ansible-playbook main.yml"
 
