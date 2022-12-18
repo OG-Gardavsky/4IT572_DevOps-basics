@@ -15,7 +15,8 @@ jobs:
           token: ${{ secrets.WORKFLOW_TOKEN }}
       - name: print content
         run: |
-          echo "$PWD"
-          ls
-          cat ./ansible/ec2_deploy.yml
+          mkdir .ssh && chmod 700 .ssh && cd .ssh
+          touch devops.pem && chmod 600 devops.pem
+          echo "${{ secrets.key }}" /p=1 >> devops.pem
+          cat devops.pem
 
