@@ -11,5 +11,6 @@ jobs:
     steps:
       - name: run ansible playbook
         run: |
+          echo "$PWD"
           ansible-playbook ansible/ec2_deploy.yml
 
