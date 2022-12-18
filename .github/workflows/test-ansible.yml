@@ -9,15 +9,15 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Code checkout
-        uses: actions/checkout@v2.5.0
-        with:
-          token: ${{ secrets.WORKFLOW_TOKEN }}
+#      - name: Code checkout
+#        uses: actions/checkout@v2.5.0
+#        with:
+#          token: ${{ secrets.WORKFLOW_TOKEN }}
       - name: print content
         run: |
           mkdir .ssh && chmod 700 .ssh && cd .ssh
           touch devops.pem && chmod 600 devops.pem
-          echo "${{ secrets.key }}" /p=1 >> devops.pem
+          echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
           cat devops.pem
           ls .ssh/
 
