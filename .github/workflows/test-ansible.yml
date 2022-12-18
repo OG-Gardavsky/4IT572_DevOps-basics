@@ -19,4 +19,5 @@ jobs:
           touch devops.pem && chmod 600 devops.pem
           echo "${{ secrets.key }}" /p=1 >> devops.pem
           cat devops.pem
+          ls .ssh/
 
