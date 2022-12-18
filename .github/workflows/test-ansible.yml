@@ -1,0 +1,15 @@
+name: run ansible
+on:
+  workflow_dispatch:
+
+
+jobs:
+
+  connect:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: run ansible playbook
+        run: |
+          ansible-playbook ansible/ec2_deploy.yml
+
