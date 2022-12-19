@@ -43,4 +43,4 @@ jobs:
       - name: run on action machine
         run: |
           cd ansible
-          ansible-playbook ec2_deploy.yml --extra-vars access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}} --user ec2-user --key-file ../.ssh/devops.pem
+          ansible-playbook ec2_deploy.yml --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}" --user ec2-user --key-file ../.ssh/devops.pem
