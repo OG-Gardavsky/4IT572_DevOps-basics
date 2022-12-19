@@ -6,15 +6,41 @@ on:
 jobs:
 
   connect:
-    name: Build
+    name: deploy
     runs-on: ubuntu-latest
     steps:
-      - name: connect via ssh
-        uses: D3rHase/ssh-command-action@v0.2.2
+
+#      - name: connect via ssh
+#        uses: D3rHase/ssh-command-action@v0.2.2
+#        with:
+#          host: ${{secrets.EC2_HOST}}
+#          user: ${{secrets.EC2_USERNAME}}
+#          private_key: ${{ secrets.AWS_KEY }}
+#          command: |
+#            cd 4IT572-ansible/ansible/
+#            ansible-playbook ec2_deploy.yml --extra-vars access_key=${{secrets.AWS_ACCESS_KEY_ID}} access_key=${{secrets.AWS_SECRET_ACCESS_KEY}} access_key=${{secrets.AWS_SESSION_TOKEN}} --user ec2-user --key-file ../devops.pem
+
+      - name: create pem key
+        run: |
+          mkdir .ssh
+          chmod 700 .ssh
+          cd .ssh
+          touch devops.pem
+          chmod 600 devops.pem
+          echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
+
+      - name: check key
+        run: |
+          ls -la
+          cd .ssh
+          ls -la
+
+      - name: Code checkout
+        uses: actions/checkout@v2.5.0
         with:
-          host: ${{secrets.EC2_HOST}}
-          user: ${{secrets.EC2_USERNAME}}
-          private_key: ${{ secrets.AWS_KEY }}
-          command: |
-            cd 4IT572-ansible/ansible/
-            ansible-playbook ec2_deploy.yml --extra-vars access_key=${{secrets.AWS_ACCESS_KEY_ID}} access_key=${{secrets.AWS_SECRET_ACCESS_KEY}} access_key=${{secrets.AWS_SESSION_TOKEN}} --user ec2-user --key-file ../devops.pem
+          token: ${{ secrets.WORKFLOW_TOKEN }}
+
+      - name: run on action machine
+        run: |
+          cd ansible
+          ansible-playbook ec2_deploy.yml --extra-vars access_key=${{secrets.AWS_ACCESS_KEY_ID}} access_key=${{secrets.AWS_SECRET_ACCESS_KEY}} access_key=${{secrets.AWS_SESSION_TOKEN}} --user ec2-user --key-file ../.ssh/devops.pem
