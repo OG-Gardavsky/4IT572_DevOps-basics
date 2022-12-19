@@ -20,6 +20,11 @@ jobs:
 #            cd 4IT572-ansible/ansible/
 #            ansible-playbook ec2_deploy.yml --extra-vars access_key=${{secrets.AWS_ACCESS_KEY_ID}} access_key=${{secrets.AWS_SECRET_ACCESS_KEY}} access_key=${{secrets.AWS_SESSION_TOKEN}} --user ec2-user --key-file ../devops.pem
 
+      - name: Code checkout
+        uses: actions/checkout@v2.5.0
+        with:
+          token: ${{ secrets.WORKFLOW_TOKEN }}
+
       - name: create pem key
         run: |
           mkdir .ssh
@@ -35,12 +40,7 @@ jobs:
           cd .ssh
           ls -la
 
-      - name: Code checkout
-        uses: actions/checkout@v2.5.0
-        with:
-          token: ${{ secrets.WORKFLOW_TOKEN }}
-
       - name: run on action machine
         run: |
           cd ansible
-          ansible-playbook ec2_deploy.yml --extra-vars access_key=${{secrets.AWS_ACCESS_KEY_ID}} access_key=${{secrets.AWS_SECRET_ACCESS_KEY}} access_key=${{secrets.AWS_SESSION_TOKEN}} --user ec2-user --key-file ../.ssh/devops.pem
+          ansible-playbook ec2_deploy.yml --extra-vars access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}} --user ec2-user --key-file ../.ssh/devops.pem
