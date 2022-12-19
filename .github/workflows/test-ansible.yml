@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-#      - name: install pip
-#        run: |
-#          pip install ansible boto boto3
+      - name: install pip
+        run: |
+          pip install ansible boto boto3
 
       - name: Code checkout
         uses: actions/checkout@v2.5.0
