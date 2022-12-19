@@ -12,7 +12,7 @@ jobs:
 
       - name: install pip
         run: |
-          pip install boto boto3
+          pip install ansible boto boto3
 
       - name: Code checkout
         uses: actions/checkout@v2.5.0
