@@ -36,10 +36,11 @@ jobs:
         with:
           playbook: ec2_deploy.yml
           directory: ansible
-          key: .ssh/devops.pem
+#          key: .ssh/devops.pem
           options: |
             --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}"
             --user ec2-user
+
 
 
 
