@@ -32,14 +32,16 @@ jobs:
           echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
 
       - name: Run Ansible playbook
-        uses: dawidd6/action-ansible-playbook@v2.6.1
-        with:
-          playbook: ec2_deploy.yml
-          directory: ansible
-          key: .ssh/devops.pem
-          options: |
-            --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}"
-            --user ec2-user
+#        uses: dawidd6/action-ansible-playbook@v2.6.1
+#        with:
+#          playbook: ec2_deploy.yml
+#          directory: ansible
+#          key: .ssh/devops.pem
+#          options: |
+#            --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}"
+#            --user ec2-user
+        run: |
+          ansible-playbook ansible/ec2_deploy.yml --user ec2-user  --key-file .ssh/devops.pem  --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}"
 
 
 
