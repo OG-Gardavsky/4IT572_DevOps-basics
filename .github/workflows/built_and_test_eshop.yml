@@ -2,7 +2,7 @@ name: build and tests our eshop workflow
 
 on:
   workflow_dispatch:
-  push:
+#  push:
 
 jobs:
   Install:
