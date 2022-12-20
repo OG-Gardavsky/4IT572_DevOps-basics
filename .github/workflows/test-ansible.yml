@@ -29,7 +29,7 @@ jobs:
           key: ${{ secrets.AWS_KEY }}
           script: |
             cd 4IT572-ansible/ansible/
-            ansible-playbook ec2_deploy.yml --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}" --user ec2-user --key-file ../devops.pem
+            ANSIBLE_HOST_KEY_CHECKING=False ~/.local/bin/ansible-playbook ec2_deploy.yml --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}" --user ec2-user --key-file ../devops.pem
 
 
 
