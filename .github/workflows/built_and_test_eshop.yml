@@ -2,7 +2,7 @@ name: build and tests our eshop workflow
 
 on:
   workflow_dispatch:
-#  push:
+  push:
 
 jobs:
   Install:
@@ -83,6 +83,24 @@ jobs:
       - name: Run tests
         run: |
           npm run test -- --colors
+
+  Deploy:
+    name: Deploy eshop to AWS EC2 machine
+    if: ${{ github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: run via SSH
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{secrets.EC2_HOST}}
+          username: ${{secrets.EC2_USERNAME}}
+          key: ${{ secrets.AWS_KEY }}
+          script: |
+            cd 4IT572-ansible/ansible/
+            ANSIBLE_HOST_KEY_CHECKING=False ~/.local/bin/ansible-playbook ec2_deploy.yml --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}" --user ec2-user --key-file ../devops.pem
+
+
 
 
 
