@@ -1,8 +1,7 @@
 name: run ansible
 on:
   workflow_dispatch:
-#  push:
-
+  push:
 
 jobs:
 
@@ -12,15 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-#      - name: create pem key
-#        run: |
-#          mkdir .ssh
-#          chmod 700 .ssh
-#          cd .ssh
-#          touch devops.pem
-#          chmod 600 devops.pem
-#          echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
-
       - name: run via SSH
         uses: appleboy/ssh-action@v0.1.6
         with:
@@ -28,8 +18,11 @@ jobs:
           username: ${{secrets.EC2_USERNAME}}
           key: ${{ secrets.AWS_KEY }}
           script: |
-            cd 4IT572-ansible/ansible/
-            ANSIBLE_HOST_KEY_CHECKING=False ~/.local/bin/ansible-playbook ec2_deploy.yml --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}" --user ec2-user --key-file ../devops.pem
+            git clone https://github.com/OG-Gardavsky/4IT572_DevOps-basics.git
+            cd 4IT572_DevOps-basics
+            chmod 600 devops.pem
+            echo "${{ secrets.AWS_KEY }}" > devops.pem
+            ANSIBLE_HOST_KEY_CHECKING=False ~/.local/bin/ansible-playbook ansible/ec2_deploy.yml --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}" --user ec2-user --key-file devops.pem
 
 
 

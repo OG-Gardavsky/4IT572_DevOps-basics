@@ -4,16 +4,15 @@
 
   tasks:
     - name: Launch EC2 Instance
-      ec2_instance:
+      ec2:
         instance_type: t2.micro
-        image_id: ami-0b0dcb5067f052a63
+        image: ami-0b0dcb5067f052a63
         region: us-east-1
         key_name: devops
         vpc_subnet_id: subnet-0a2d456093c5293ec
-        security_group: eshop
+        group: eshop
         count: 1
-        network:
-          assign_public_ip: true
+        assign_public_ip: yes
         wait: yes
         aws_access_key: "{{ access_key }}"
         aws_secret_key: "{{ secret_key }}"
@@ -21,13 +20,13 @@
       register: ec2
     - name: Add instance host to group
       add_host:
-        hostname: "{{ item.public_ip_address }}"
+        hostname: "{{ item.public_ip }}"
         groupname: launched
       loop: "{{ ec2.instances }}"
     - name: Wait for ssh connection
       delegate_to: "{{ item.public_dns_name }}"
       wait_for_connection:
-        sleep: 60
+        delay: 30
         timeout: 300
       loop: "{{ ec2.instances }}"
 
