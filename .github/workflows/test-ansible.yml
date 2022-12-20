@@ -12,22 +12,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: create pem key
-        run: |
-          mkdir .ssh
-          chmod 700 .ssh
-          cd .ssh
-          touch devops.pem
-          chmod 600 devops.pem
-          echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
+#      - name: create pem key
+#        run: |
+#          mkdir .ssh
+#          chmod 700 .ssh
+#          cd .ssh
+#          touch devops.pem
+#          chmod 600 devops.pem
+#          echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
 
       - name: run via SSH
-        uses: D3rHase/ssh-command-action@v0.2.2
+        uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{secrets.EC2_HOST}}
-          user: ${{secrets.EC2_USERNAME}}
-          private_key: ${{ secrets.AWS_KEY }}
-          command: |
+          username: ${{secrets.EC2_USERNAME}}
+          key: ${{ secrets.AWS_KEY }}
+          script: |
             cd 4IT572-ansible/ansible/
             ansible-playbook ec2_deploy.yml --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}" --user ec2-user --key-file ../devops.pem
 
