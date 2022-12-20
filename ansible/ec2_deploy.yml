@@ -6,7 +6,7 @@
     - name: Launch EC2 Instance
       ec2_instance:
         instance_type: t2.micro
-        image: ami-0b0dcb5067f052a63
+        image_id: ami-0b0dcb5067f052a63
         region: us-east-1
         key_name: devops
         vpc_subnet_id: subnet-0a2d456093c5293ec
@@ -20,7 +20,7 @@
       register: ec2
     - name: Add instance host to group
       add_host:
-        hostname: "{{ item.public_ip }}"
+        hostname: "{{ item.public_ip_address }}"
         groupname: launched
       loop: "{{ ec2.instances }}"
     - name: Wait for ssh connection
