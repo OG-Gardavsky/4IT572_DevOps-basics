@@ -10,7 +10,7 @@
         region: us-east-1
         key_name: devops
         vpc_subnet_id: subnet-0a2d456093c5293ec
-        group: eshop
+        security_group: eshop
         count: 1
 #        assign_public_ip: yes
         wait: yes
