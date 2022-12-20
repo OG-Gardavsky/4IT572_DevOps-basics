@@ -27,7 +27,7 @@ jobs:
           directory: ansible
           key: ${{secrets.AWS_KEY}}
           options: |
-            --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}"
+#            --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}"
 
 
 
