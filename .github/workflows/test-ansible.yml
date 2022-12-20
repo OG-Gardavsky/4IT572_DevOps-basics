@@ -22,21 +22,21 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
 
-      - name: create pem key
-        run: |
-          mkdir .ssh
-          chmod 700 .ssh
-          cd .ssh
-          touch devops.pem
-          chmod 600 devops.pem
-          echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
+#      - name: create pem key
+#        run: |
+#          mkdir .ssh
+#          chmod 700 .ssh
+#          cd .ssh
+#          touch devops.pem
+#          chmod 600 devops.pem
+#          echo "${{ secrets.AWS_KEY }}" /p=1 >> devops.pem
 
       - name: Run Ansible playbook
         uses: dawidd6/action-ansible-playbook@v2.6.1
         with:
           playbook: ec2_deploy.yml
           directory: ansible
-          key: .ssh/devops.pem
+          key: ${{ secrets.AWS_KEY }}
           options: |
             --extra-vars "access_key=${{secrets.AWS_ACCESS_KEY_ID}} secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}} session_token=${{secrets.AWS_SESSION_TOKEN}}"
 
